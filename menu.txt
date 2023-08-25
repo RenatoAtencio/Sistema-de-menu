@@ -1,0 +1,9 @@
+##########---Menu---##########
+0) Salir 
+1) Sumar Vector
+2) Promedio del Vector
+3) Moda del Vector
+4) Contar elementos del Vector
+5) Crear archivo txt
+6) Escribir en archivo txt
+##############################

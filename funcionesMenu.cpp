@@ -85,13 +85,26 @@ else {
 }
 
 void mostrarMenu() {
-    cout << "##########---Menu---##########" << endl;
-    cout << "0) Salir " << endl;
-    cout << "1) Sumar Vector" << endl;
-    cout << "2) Promedio del Vector" << endl;
-    cout << "3) Moda del Vector" << endl;
-    cout << "4) Contar elementos del Vector" << endl;
-    cout << "5) Crear archivo txt" << endl;
-    cout << "6) Escribir en archivo txt" << endl;
-    cout << "##############################" << endl;
+    string menu = "menu.txt";
+    string lineaTxt;
+    ifstream usersTxt(menu);
+    if (usersTxt.is_open()) {
+        // leo el txt linea a linea
+        while (getline(usersTxt, lineaTxt))
+        {
+            cout << lineaTxt << endl;
+        }
+        usersTxt.close();
+    }
+
+    // cout << "##########---Menu---##########" << endl;
+    // cout << "0) Salir " << endl;
+    // cout << "1) Sumar Vector" << endl;
+    // cout << "2) Promedio del Vector" << endl;
+    // cout << "3) Moda del Vector" << endl;
+    // cout << "4) Contar elementos del Vector" << endl;
+    // cout << "5) Crear archivo txt" << endl;
+    // cout << "6) Escribir en archivo txt" << endl;
+    // cout << "##############################" << endl;
+
 }

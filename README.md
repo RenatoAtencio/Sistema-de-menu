@@ -14,7 +14,7 @@
     La opcion 5 verifica que el archivo este creado, si este no es el caso creara el archivo.
     La opcion 6 tambien verifica que el archivo este creado pero si no es el caso solamente lo indicara , si el archivo existe entonces escribe el input texto en el mismo.
 
-    se dividio en 5 archivos.cpp y uno .h:
+    el programa se dividio en 5 archivos.cpp y uno .h:
     main.cpp : Es la columna del codigo y desde el mismo se llaman a las funciones que presentes en el main y en otros archivos.cpp.
     
     funcionesMenu.cpp : contiene funciones relacionadas con el menu de la aplicacion, como mostrarMenu que imprime el menu en la consola.
