@@ -1,5 +1,5 @@
 ##########---Menu---##########
-0) Salir 
+0) Salir  
 1) Sumar Vector
 2) Promedio del Vector
 3) Moda del Vector
