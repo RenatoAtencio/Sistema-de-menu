@@ -82,12 +82,12 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
     }
     case 7: { // Contar Palabras
         if (user.verificarPermiso(7)) {
-            string pathTexto = getenv("PATH_INPUTFILES") + nombreTexto;
+            string pathTexto = getenv("PATH_RAWFILES") + nombreTexto;
             if (verificarArchivo(pathTexto) == false) {
                 cout << "El archivo no existe" << endl;
             }
             else {
-                user.contarPalabras(pathTexto,nombreArchivoSalidaConteo);
+                user.contarPalabras(nombreTexto,nombreArchivoSalidaConteo);
             }
             break;
         }
@@ -103,7 +103,7 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
 
 void mostrarMenu() {
     ifstream menu(getenv("DB_MENU"));
-    vector<vector<string>> opciones(9);
+    vector<vector<string>> opciones(8);
     string linea;
     while (getline(menu, linea)) {
         vector<string> v1;

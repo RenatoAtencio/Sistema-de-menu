@@ -4,9 +4,10 @@ import re
 
 pathProcessedFiles = os.getenv('PATH_PROCESSEDFILES')
 fileName = sys.argv[1]
+processedFilePath = os.path.join(pathProcessedFiles,'processed_' + fileName)
 
 # Abre el archivo 
-with open(os.path.join(pathProcessedFiles,'processed_' + fileName), 'r') as file:
+with open(processedFilePath, 'r') as file:
     contenido = file.read()
 
 # Divide el contenido en palabras
@@ -23,9 +24,12 @@ for palabra in palabras:
 
 pathOutputFiles = os.getenv('PATH_OUTPUTFILES')
 outputFileName = 'output_' + fileName
+outputFilePath = os.path.join(pathOutputFiles,outputFileName)
 
 # Crea y escribe en el archivo de salida si NO existe
-if not os.path.exists(os.path.join(pathOutputFiles,outputFileName)):
-    with open(os.path.join(pathOutputFiles,outputFileName),'w') as outputFile:
+if not os.path.exists(outputFilePath):
+    with open(outputFilePath,'w') as outputFile:
         for palabra, cantidad in conteo_palabras.items():
             outputFile.write(f"{palabra};{cantidad}\n")
+    if os.path.exists(processedFilePath):
+        os.remove(processedFilePath)

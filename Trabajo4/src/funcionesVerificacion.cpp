@@ -2,10 +2,8 @@
 
 using namespace std;
 
-// Verifica la existencia de un archivo, toma el path completo menos el root (en este caso Trabajo4)
+// Verifica la existencia de un archivo
 bool verificarArchivo(string path){
-    string pathCompleto = "../" + path;
-    ifstream file(pathCompleto);
-    cout<< pathCompleto << " " << file.good() << " ";
+    ifstream file(path);
     return (file.good());
 }

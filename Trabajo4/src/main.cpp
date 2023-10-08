@@ -72,7 +72,6 @@ int main(int argc, char* argv[]) {
 // carga texto que este en formato var11,var12,var13;var21,var22,var33; y lo pasa a un vector de vectores. 
 vector<vector<string>> separarTextoFormatoNormal(string pathArchivo) {
     vector<vector<string>> vectorSalida;
-    cout << pathArchivo << endl;
     string lineaTxt;
     ifstream archivoTxt(pathArchivo);
     if (archivoTxt.is_open()) {
