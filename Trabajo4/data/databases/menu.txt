@@ -6,3 +6,5 @@
 5) Crear archivo txt,5
 6) Escribir en archivo creado txt,6
 7) Contar palabras en el archivo dado,7
+8) Preparar datos para indice invertido,8
+9) Crear indice invertido,9

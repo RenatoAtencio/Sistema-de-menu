@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-pathProcessedFiles = os.getenv('PATH_PROCESSEDFILES')
+pathProcessedFiles = "../Trabajo4/data/Files/ProcessedFiles"
 fileName = sys.argv[1]
 processedFilePath = os.path.join(pathProcessedFiles,'processed_' + fileName)
 
@@ -22,7 +22,7 @@ for palabra in palabras:
     else:
         conteo_palabras[palabra] = 1
 
-pathOutputFiles = os.getenv('PATH_OUTPUTFILES')
+pathOutputFiles = "../Trabajo4/data/Files/OutputFiles"
 outputFileName = 'output_' + fileName
 outputFilePath = os.path.join(pathOutputFiles,outputFileName)
 
@@ -30,6 +30,6 @@ outputFilePath = os.path.join(pathOutputFiles,outputFileName)
 if not os.path.exists(outputFilePath):
     with open(outputFilePath,'w') as outputFile:
         for palabra, cantidad in conteo_palabras.items():
-            outputFile.write(f"{palabra};{cantidad}\n")
+            outputFile.write(f"{palabra},{cantidad}\n")
     if os.path.exists(processedFilePath):
         os.remove(processedFilePath)

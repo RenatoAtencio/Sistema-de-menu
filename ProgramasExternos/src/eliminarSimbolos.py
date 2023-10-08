@@ -3,7 +3,7 @@ import sys
 import re
 
 # Leo el path y el nombre del archivo pasado por la consola
-pathRawFiles = os.getenv('PATH_RAWFILES')
+pathRawFiles = "../Trabajo4/data/Files/RawFiles"
 fileName = sys.argv[1]
 
 # Abro el archivo y lo guardo en contenido
@@ -14,7 +14,7 @@ with open(os.path.join(pathRawFiles, fileName),'r') as file:
 contenidoLimpio = re.sub(r'\W+', ' ', contenido).lower()
 
 # Creo el archivo de salida y lo guardo en Files/ProcessedFiles
-pathProcessedFiles = os.getenv('PATH_PROCESSEDFILES')
+pathProcessedFiles = "../Trabajo4/data/Files/ProcessedFiles"
 processedFileName = 'processed_' + fileName
 
 # Crea y escribe en el archivo de salida si NO existe

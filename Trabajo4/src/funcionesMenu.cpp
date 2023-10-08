@@ -87,7 +87,7 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
                 cout << "El archivo no existe" << endl;
             }
             else {
-                user.contarPalabras(nombreTexto,nombreArchivoSalidaConteo);
+                user.contarPalabras(nombreTexto, nombreArchivoSalidaConteo);
             }
             break;
         }
@@ -98,12 +98,30 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
         cout << "Esta funcionalidad no esta implementada" << endl;
     }
     }
+    case 8: {
+        if (user.verificarPermiso(8)) {
+            user.prepararArchivosIndice();
+        }
+        else {
+            cout << "No tiene este permiso" << endl;
+        }
+        break;
+    }
+    case 9: {
+        if (user.verificarPermiso(9)) {
+            cout << "Tiene este permiso" << endl;
+        }
+        else {
+            cout << "No tiene este permiso" << endl;
+        }
+        break;
+    }
     }
 }
 
 void mostrarMenu() {
     ifstream menu(getenv("DB_MENU"));
-    vector<vector<string>> opciones(8);
+    vector<vector<string>> opciones(10);
     string linea;
     while (getline(menu, linea)) {
         vector<string> v1;

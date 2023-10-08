@@ -105,11 +105,11 @@ public:
     void contarPalabras(string nombreArchivo, string pathSalidaConteo){
         // Llamar a la programa externo, eliminar simbolos y contar palabras, elminar el archivo temporal al final
         // Ya verifique que el archivo existe
-        string commandElimSimbolos = "python3 ProgramasExternos/eliminarSimbolos.py " + nombreArchivo;
+        string commandElimSimbolos = "python3 " + string(getenv("PATH_PROGRAMAS_EXTERNOS")) + "eliminarSimbolos.py " + nombreArchivo;
         int successElimSimbolos = system(commandElimSimbolos.c_str());
         if (successElimSimbolos == 0){
             cout << "Se llamo al proceso para eliminar simbolos correctamente" << endl;
-            string commandContarPalabras = "python3 ProgramasExternos/contarPalabras.py " + nombreArchivo;
+            string commandContarPalabras = "python3 " + string(getenv("PATH_PROGRAMAS_EXTERNOS")) + "contarPalabras.py " + nombreArchivo;
             int successContarPalabras = system(commandContarPalabras.c_str());
             if (successContarPalabras == 0){
                 cout << "Se llamo al proceso para contar palabras correctamente" << endl;
@@ -121,4 +121,14 @@ public:
             cout << "No se pudo llamar al proceso para eliminar simbolos" << endl;
         }
     }
+
+    void prepararArchivosIndice(){
+        int successPrepararArchivos = system("../ProgramasExternos/app");
+        if (successPrepararArchivos == 1){
+            cout << "Proceso fue llamado correctamente" << endl;
+        }else {
+            cout << "No se pudo llamar al proceso" << endl;
+        }
+    }
+
 };
