@@ -21,7 +21,7 @@ private:
 
 public:
     // Constructor
-    usuario(string nombreInput, string rolInput,vector<int> numerosInput, vector<int> permisosInput) {
+    usuario(string nombreInput, string rolInput, vector<int> numerosInput, vector<int> permisosInput) {
         nombre = nombreInput;
         rol = rolInput;
         numeros = numerosInput;
@@ -29,11 +29,11 @@ public:
     }
 
     // Funciones get
-    string getNombre(){
+    string getNombre() {
         return nombre;
     }
 
-    string getRol(){
+    string getRol() {
         return rol;
     }
 
@@ -102,33 +102,45 @@ public:
         }
     }
 
-    void contarPalabras(string nombreArchivo, string pathSalidaConteo){
+    void contarPalabras(string nombreArchivo, string pathSalidaConteo) {
         // Llamar a la programa externo, eliminar simbolos y contar palabras, elminar el archivo temporal al final
         // Ya verifique que el archivo existe
         string commandElimSimbolos = "python3 " + string(getenv("PATH_PROGRAMAS_EXTERNOS")) + "eliminarSimbolos.py " + nombreArchivo;
         int successElimSimbolos = system(commandElimSimbolos.c_str());
-        if (successElimSimbolos == 0){
+        if (successElimSimbolos == 0) {
             cout << "Se llamo al proceso para eliminar simbolos correctamente" << endl;
             string commandContarPalabras = "python3 " + string(getenv("PATH_PROGRAMAS_EXTERNOS")) + "contarPalabras.py " + nombreArchivo;
             int successContarPalabras = system(commandContarPalabras.c_str());
-            if (successContarPalabras == 0){
+            if (successContarPalabras == 0) {
                 cout << "Se llamo al proceso para contar palabras correctamente" << endl;
-            }else{
+            }
+            else {
                 cout << "No se pudo llamar al proceso para contar palabras" << endl;
                 // quisas deberia quitar el processed file si falla
             }
-        }else {
+        }
+        else {
             cout << "No se pudo llamar al proceso para eliminar simbolos" << endl;
         }
     }
 
-    void prepararArchivosIndice(){
-        int successPrepararArchivos = system("../ProgramasExternos/app");
-        if (successPrepararArchivos == 1){
-            cout << "Proceso fue llamado correctamente" << endl;
-        }else {
-            cout << "No se pudo llamar al proceso" << endl;
+    void prepararArchivosIndice() {
+        if (stoi(getenv("AMOUNT_THREADS")) > 10 || stoi(getenv("AMOUNT_THREADS")) <= 0) {
+            cout << "La cantidad de threads definidos es invalida" << endl;
+        }
+        else {
+            string commandPrepArchivos = "../ProgramasExternos/app " + string(getenv("EXTENSION")) + " " + string(getenv("PATH_RAWFILES")) + " " + string(getenv("PATH_OUTPUTFILES")) + " " + string(getenv("AMOUNT_THREADS"));
+            int successPrepararArchivos = system(commandPrepArchivos.c_str());
+            if (successPrepararArchivos == 0) {
+                cout << "Proceso fue llamado correctamente" << endl;
+            }
+            else {
+                cout << "No se pudo llamar al proceso" << endl;
+            }
         }
     }
 
+    void crearIndiceInvertido(){
+        cout << "Tiene" << endl;
+    }
 };

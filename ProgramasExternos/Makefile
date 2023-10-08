@@ -10,16 +10,20 @@ SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 # Lista de archivos objeto generados a partir de los archivos fuente
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
-# Nombre del programa ejecutable
+# Nombre de los programas ejecutables
 TARGET = app
+TARGET2 = app2  # Segundo programa ejecutable
 
-all: $(TARGET)
+all: $(TARGET) $(TARGET2)
 
-$(TARGET): $(OBJS)
+$(TARGET): $(OBJ_DIR)/main.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(TARGET2): $(OBJ_DIR)/main2.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) $(TARGET) $(TARGET2)

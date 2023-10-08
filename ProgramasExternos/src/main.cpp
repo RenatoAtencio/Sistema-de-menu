@@ -105,7 +105,8 @@ void processFilesInParallel() {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    cout << argv[1] << endl;
     processFilesInParallel();
     return 0;
 }
