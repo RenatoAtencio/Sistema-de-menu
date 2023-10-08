@@ -31,5 +31,5 @@ if not os.path.exists(outputFilePath):
     with open(outputFilePath,'w') as outputFile:
         for palabra, cantidad in conteo_palabras.items():
             outputFile.write(f"{palabra},{cantidad}\n")
-    if os.path.exists(processedFilePath):
-        os.remove(processedFilePath)
+if os.path.exists(processedFilePath):
+    os.remove(processedFilePath)

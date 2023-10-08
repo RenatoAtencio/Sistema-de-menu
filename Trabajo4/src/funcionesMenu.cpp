@@ -2,6 +2,8 @@
 
 using namespace std;
 
+int usoPrep = 0;
+
 void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoTxt, string textoNuevoTxt, string nombreTexto, string nombreArchivoSalidaConteo) {
     switch (userInput) {
     case 0: { // Salir
@@ -101,6 +103,7 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
     case 8: {
         if (user.verificarPermiso(8)) {
             user.prepararArchivosIndice();
+            usoPrep = 1;
         }
         else {
             cout << "No tiene este permiso" << endl;
@@ -108,8 +111,11 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
         break;
     }
     case 9: {
-        if (user.verificarPermiso(9)) {
-            cout << "Tiene este permiso" << endl;
+        if ((user.verificarPermiso(9)) && (usoPrep == 1)) {
+            user.crearIndiceInvertido();
+        }
+        else if(usoPrep == 0){
+            cout << "Debe usar la opcion 8 antes de usar la opcion 9" << endl;
         }
         else {
             cout << "No tiene este permiso" << endl;

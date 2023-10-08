@@ -127,8 +127,15 @@ public:
     void prepararArchivosIndice() {
         if (stoi(getenv("AMOUNT_THREADS")) > 10 || stoi(getenv("AMOUNT_THREADS")) <= 0) {
             cout << "La cantidad de threads definidos es invalida" << endl;
+        }else if (string(getenv("PATH_RAWFILES")) == string(getenv("PATH_OUTPUTFILES"))){
+            cout << "Las carpetas In y Out no pueden ser la misma" << endl;
         }
         else {
+            ifstream file;
+            file.open("data/Files/OutputFiles/file.idx");
+            if (file) { // Si existe el file.idx lo borra
+                remove("data/Files/OutputFiles/file.idx");
+            }
             string commandPrepArchivos = "../ProgramasExternos/app " + string(getenv("EXTENSION")) + " " + string(getenv("PATH_RAWFILES")) + " " + string(getenv("PATH_OUTPUTFILES")) + " " + string(getenv("AMOUNT_THREADS"));
             int successPrepararArchivos = system(commandPrepArchivos.c_str());
             if (successPrepararArchivos == 0) {
@@ -140,7 +147,18 @@ public:
         }
     }
 
-    void crearIndiceInvertido(){
-        cout << "Tiene" << endl;
+    void crearIndiceInvertido() {
+        ifstream file;
+        file.open("data/Files/OutputFiles/file.idx");
+        if (!file) {
+            file.close();
+            string commandCrearIndice = "../ProgramasExternos/app2 " + string(getenv("PATH_OUTPUTFILES")) + " " + string(getenv("INVERTED_INDEX_FILE"));
+            int successIndice = system(commandCrearIndice.c_str());
+            if (successIndice != 0) {
+                cout << "Hubo un error al crear el indice" << endl;
+            }
+        }else {
+            cout << "El file.idx ya fue creado" << endl;
+        }
     }
 };

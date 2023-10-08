@@ -6,6 +6,8 @@
         "vector": "cpp",
         "__split_buffer": "cpp",
         "iosfwd": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "filesystem": "cpp",
+        "algorithm": "cpp"
     }
 }

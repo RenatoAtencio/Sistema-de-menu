@@ -10,6 +10,12 @@
 #include <filesystem>
 #include <unordered_map>
 #include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <map>
+#include <chrono>
+
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -20,7 +26,7 @@ queue<string> filesToProcess;
 bool done = false;
 
 // Función para procesar un archivo de texto y contar palabras
-void processFile(int threadId) {
+void processFile(int threadId, string outPath) {
     while (true) {
         string filePath;
         {
@@ -52,7 +58,7 @@ void processFile(int threadId) {
         inputFile.close();
 
         string fileName = filePath.substr(filePath.find_last_of('/') + 1);
-        string path = "../Trabajo4/data/Files/OutputFiles";
+        string path = "../Trabajo4/" + outPath;
         string outputPath = path + "/" + fileName;
 
 
@@ -68,23 +74,24 @@ void processFile(int threadId) {
         outputFile.close();
 
         mtx.lock();
-        cout << "Archivo " << filePath << ", procesado por el thread " << threadId << endl;
+        cout << "Proceso PID: " << getpid() << " Archivo: " << filePath << ", procesado por el thread " << threadId << endl;
         mtx.unlock();
     }
 }
 
 // Función para procesar archivos en paralelo
-void processFilesInParallel() {
+void processFilesInParallel(string extension, string inFiles, string outFiles, string amountThreads) {
     vector<thread> threads;
-    int hilo = stoi("2");
+    int hilo = stoi(amountThreads);
 
     for (int i = 0; i < hilo; i++) {
-        threads.emplace_back(processFile, i);
+        threads.emplace_back(processFile, i, outFiles);
     }
 
-    for (const auto& entry : fs::directory_iterator("../Trabajo4/data/Files/RawFiles")) {
-        string temp = "txt";
-        if (entry.is_regular_file() && entry.path().extension() == "." + temp) {//si el archivo es de extension txt, se agrega a la cola filesToProcess para ser leida por algun hilo que termine de procesar un archivo txt del input
+    for (const auto& entry : fs::directory_iterator("../Trabajo4/" + inFiles)) {
+        string temp = extension;
+        string filename = entry.path().filename().string();
+        if ((entry.is_regular_file()) && (filename.rfind("file",0) == 0) && (entry.path().extension() == "." + temp)) {//si el archivo es de extension txt, se agrega a la cola filesToProcess para ser leida por algun hilo que termine de procesar un archivo txt del input
             string filePath = entry.path().string();
             {
                 lock_guard<mutex> lock(mtx);
@@ -106,7 +113,14 @@ void processFilesInParallel() {
 }
 
 int main(int argc, char* argv[]) {
-    cout << argv[1] << endl;
-    processFilesInParallel();
+    if (argc < 5) {
+        cerr << "No dio suficientes argumentos";
+        return 1;  // Termina el programa con un código de error
+    }
+    string extension = argv[1];
+    string inFiles = argv[2];
+    string outFiles = argv[3];
+    string amountThreads = argv[4];
+    processFilesInParallel(extension, inFiles, outFiles, amountThreads);
     return 0;
 }
