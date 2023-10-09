@@ -109,7 +109,7 @@ public:
         int successElimSimbolos = system(commandElimSimbolos.c_str());
         if (successElimSimbolos == 0) {
             cout << "Se llamo al proceso para eliminar simbolos correctamente" << endl;
-            string commandContarPalabras = "python3 " + string(getenv("PATH_PROGRAMAS_EXTERNOS")) + "contarPalabras.py " + nombreArchivo;
+            string commandContarPalabras = "python3 " + string(getenv("PATH_PROGRAMAS_EXTERNOS")) + "contarPalabras.py " + nombreArchivo + " " + pathSalidaConteo;
             int successContarPalabras = system(commandContarPalabras.c_str());
             if (successContarPalabras == 0) {
                 cout << "Se llamo al proceso para contar palabras correctamente" << endl;

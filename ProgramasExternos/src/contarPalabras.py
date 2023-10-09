@@ -23,7 +23,7 @@ for palabra in palabras:
         conteo_palabras[palabra] = 1
 
 pathOutputFiles = "../Trabajo4/data/Files/OutputFiles"
-outputFileName = 'output_' + fileName
+outputFileName = sys.argv[2]
 outputFilePath = os.path.join(pathOutputFiles,outputFileName)
 
 # Crea y escribe en el archivo de salida si NO existe

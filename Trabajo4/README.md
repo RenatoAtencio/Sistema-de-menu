@@ -64,12 +64,12 @@ Usar en la carpeta PregramasExternos
 Usar en la consola dentro de Trabajo4 usar ./app -u user -v vector -f pathArchivoACrear -t TextoParaArchivoCreado -i PathArchivoConteo -o PathSalidaConteo
 -u: El user es el nombre del usuario que se quiere usar, la aplicacion es case sensitive asi que juan != Juan. Ej: Kylian
 -v: El vector de numeros es un string de numeros separados por ','. Ej: 1,4,5,1,23,14,441
--f El path es la direccion de una carpeta mas el nombre de un archivo. Ej: /home/user/escritorio/nombre.txt, tambien sirve poner solamente el nombre, en este caso crear el archivo en la misma carpeta
+-f nombre de un archivo. Ej: nombre.txt
 -t El texto es un string. Ej: Hola
--i path del archivo que se va a cargar y posiblemente del cual se va a hacer el conteo de palabras
--o path para el archivo de salida del resultado del conteo
+-i nombre del archivo a realizar el conteo ej = harryPotter.txt, este archivo debe de estar en data/Files/RawFiles
+-o nombre del archivo de salida del conteo, ej = salida.txt, este archivo se guarda en OutputFiles
 
-    Ejemplo de entrada: ./app -u Pol -v 3,1,4,5,2,2,3 -f intento4.txt -t hola -i data/Files/RawFiles/harryPotter.txt -o data/Files/OutputFiles/salida.txt
+    Ejemplo de entrada: ./app -u Pol -v 3,1,4,5,2,2,3 -f intento4.txt -t hola -i harryPotter.txt -o salida.txt
 
 ### Estructura Bases de dato
 
