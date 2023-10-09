@@ -88,6 +88,9 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
             if (verificarArchivo(pathTexto) == false) {
                 cout << "El archivo no existe" << endl;
             }
+            else if (string(getenv("PATH_RAWFILES")) == string(getenv("PATH_OUTPUTFILES"))) {
+                cout << "Las carpetas In y Out no pueden ser la misma" << endl;
+            }
             else {
                 user.contarPalabras(nombreTexto, nombreArchivoSalidaConteo);
             }
@@ -102,8 +105,16 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
     }
     case 8: {
         if (user.verificarPermiso(8)) {
-            user.prepararArchivosIndice();
-            usoPrep = 1;
+            if (stoi(getenv("AMOUNT_THREADS")) > 10 || stoi(getenv("AMOUNT_THREADS")) <= 0) {
+                cout << "La cantidad de threads definidos es invalida" << endl;
+            }
+            else if (string(getenv("PATH_RAWFILES")) == string(getenv("PATH_OUTPUTFILES"))) {
+                cout << "Las carpetas In y Out no pueden ser la misma" << endl;
+            }
+            else {
+                user.prepararArchivosIndice();
+                usoPrep = 1;
+            }
         }
         else {
             cout << "No tiene este permiso" << endl;
@@ -114,7 +125,7 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
         if ((user.verificarPermiso(9)) && (usoPrep == 1)) {
             user.crearIndiceInvertido();
         }
-        else if(usoPrep == 0){
+        else if (usoPrep == 0) {
             cout << "Debe usar la opcion 8 antes de usar la opcion 9" << endl;
         }
         else {
