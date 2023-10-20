@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-pathProcessedFiles = "../Trabajo5/data/Files/ProcessedFiles"
+pathProcessedFiles = "../Trabajo4/data/Files/ProcessedFiles"
 fileName = sys.argv[1]
 processedFilePath = os.path.join(pathProcessedFiles,'processed_' + fileName)
 
@@ -22,7 +22,7 @@ for palabra in palabras:
     else:
         conteo_palabras[palabra] = 1
 
-pathOutputFiles = "../Trabajo5/data/Files/OutputFiles"
+pathOutputFiles = "../Trabajo4/data/Files/OutputFiles"
 outputFileName = sys.argv[2]
 outputFilePath = os.path.join(pathOutputFiles,outputFileName)
 

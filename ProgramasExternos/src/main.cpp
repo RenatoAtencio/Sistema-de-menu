@@ -58,7 +58,7 @@ void processFile(int threadId, string outPath) {
         inputFile.close();
 
         string fileName = filePath.substr(filePath.find_last_of('/') + 1);
-        string path = "../Trabajo5/" + outPath;
+        string path = "../Trabajo4/" + outPath;
         string outputPath = path + "/" + fileName;
 
 
@@ -88,7 +88,7 @@ void processFilesInParallel(string extension, string inFiles, string outFiles, s
         threads.emplace_back(processFile, i, outFiles);
     }
 
-    for (const auto& entry : fs::directory_iterator("../Trabajo5/" + inFiles)) {
+    for (const auto& entry : fs::directory_iterator("../Trabajo4/" + inFiles)) {
         string temp = extension;
         string filename = entry.path().filename().string();
         if ((entry.is_regular_file()) && (filename.rfind("file",0) == 0) && (entry.path().extension() == "." + temp)) {//si el archivo es de extension txt, se agrega a la cola filesToProcess para ser leida por algun hilo que termine de procesar un archivo txt del input

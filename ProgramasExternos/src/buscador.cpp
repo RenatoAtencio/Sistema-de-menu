@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <chrono>
+#include <bits/stdc++.h> 
 
 using namespace std;
 
@@ -16,21 +18,29 @@ unordered_map<string, vector<pair<string, int>>>  makeUnorderedMap(string pathFi
 
 
 int main(int argc, char* argv[]) {
+    auto start = chrono::high_resolution_clock::now();
     unordered_map<string, vector<pair<string, int>>> invertedIndex;
     unordered_map<string, vector<pair<string, int>>> allSearchResults;
     unordered_map<string, vector<pair<string, int>>> goodSearchResults;
     if (argc < 3) {
         cerr << "No ingreso suficientes argumentos" << endl;
-        return 0;
+        return 1;
     }
 
     // Paso el .idx a invertedIndex
     string nombreIndice = argv[1];
     invertedIndex = makeUnorderedMap("../Trabajo5/" + nombreIndice);
 
+    int topk = atoi(argv[2]);
+    cout << "Buscador basado en indice invertido (" << getpid() << ")" << endl;
+    cout << "Los TOP K documentos seran: " << topk << endl;
+
     // Creo la estructura de la busqueda
-    string searchInput = argv[2];
+    string searchInput;
+    cout << "Escriba texto a buscar: ";
+    getline(cin, searchInput);
     istringstream inputStream(searchInput);
+    // cout << searchInput << endl;
     string word;
     int searchInputSize = 0;
 
@@ -40,6 +50,7 @@ int main(int argc, char* argv[]) {
             // Acceder al vector de pares asociado a la clave y recorrerlo
             for (const pair<string, int>& entry : invertedIndex[word]) {
                 allSearchResults[entry.first].emplace_back(word, entry.second);
+                // cout << entry.first << " " << word << " " << entry.second << endl;
             }
         }
         else {
@@ -57,23 +68,48 @@ int main(int argc, char* argv[]) {
     }
 
     // Sumar las cantidades
-    vector<pair<string,int>> endResults;
-    for (const auto& entry : goodSearchResults) {
-        int sum = 0;
-        const vector<pair<string, int>>& pairs = entry.second;
-        for (const pair<string, int>& keyValue : pairs) {
-            int value = keyValue.second;
-            sum = sum + value;
+    vector<pair<string, int>> endResults;
+    cout << "Respuesta: " << endl;
+    if (goodSearchResults.size() == 0) {
+        cout << "No existen coincidencias de todas las palabras en un solo archivo" << endl;
+
+    }
+    else {
+        for (const auto& entry : goodSearchResults) {
+            int sum = 0;
+            const vector<pair<string, int>>& pairs = entry.second;
+            for (const pair<string, int>& keyValue : pairs) {
+                int value = keyValue.second;
+                sum = sum + value;
+            }
+            endResults.emplace_back(entry.first, sum);
         }
-        endResults.emplace_back(entry.first,sum);
+        for (const pair<string, int>& result : endResults) {
+            topk--;
+            if (topk < 0) {
+                break;
+            }
+
+            //
+            auto customComparator = [](const pair<string, int>& a, const pair<string, int>& b) {
+                return a.second < b.second;
+                };
+
+            // Ordena el vector usando el comparador personalizado.
+            std::sort(endResults.begin(), endResults.end(), customComparator);
+
+            // Imprime el vector ordenado.
+            for (const auto& pair : endResults) {
+                std::cout << pair.first << ": " << pair.second << std::endl;
+            }
+
+            // string fileName = result.first;
+            // int value = result.second;
+            // cout << "Archivo: " << fileName << ", Cantidad: " << value << endl;
+        }
     }
 
     // print vector
-    for (const pair<string, int>& result : endResults) {
-        string fileName = result.first;
-        int value = result.second;
-        cout << "Archivo: " << fileName << ", Valor: " << value << endl;
-    }
 
     // Print unordered map
     // for (const auto& entry : goodSearchResults) {
@@ -83,8 +119,10 @@ int main(int argc, char* argv[]) {
     //     }
     //     cout << endl;
     // }
-
-    return 1;
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    cout << "Tiempo de ejecucion " << duration << " ns" << endl;
+    return 0;
 }
 
 unordered_map<string, vector<pair<string, int>>> makeUnorderedMap(string pathFile) {

@@ -156,16 +156,22 @@ public:
         }
     }
 
-    void buscador(){
-        string input;
-        cout << "Los top k documentos seran: " << getenv("TOPK") << endl; 
-        cout << "Escriba texto a buscar: " << endl;
-        cin >> input;
-        string comandoBusqueda = "../ProgramasExternos/app3 " + string(getenv("INVERTED_INDEX_FILE")) + " " + string(getenv("TOPK"));
-        cout << comandoBusqueda << endl;
-        int successBusqueda = system(comandoBusqueda.c_str());
-        if (successBusqueda != 0) {
-            cout << "Hubo un error al crear el indice" << endl;
+    void buscador() {
+        ifstream file;
+        file.open("data/Files/OutputFiles/file.idx");
+        if (atoi(getenv("TOPK")) <= 4) {
+            cout << "La variable de entorno TOPK debe ser mayor a 4" << endl;
+        }
+        else if (!file) {
+            cout << "El file.idx aun no ha sido creado (Usar 9)" << endl;
+        }
+        else {
+            string comandoBusqueda = "../ProgramasExternos/app3 " + string(getenv("INVERTED_INDEX_FILE")) + " " + string(getenv("TOPK"));
+            cout << comandoBusqueda << endl;
+            int successBusqueda = system(comandoBusqueda.c_str());
+            if (successBusqueda != 0) {
+                cout << "Hubo un error al crear el indice" << endl;
+            }
         }
     }
 };
