@@ -84,28 +84,23 @@ int main(int argc, char* argv[]) {
             }
             endResults.emplace_back(entry.first, sum);
         }
+
+        // Ver como funciona    
+        std::sort(endResults.begin(), endResults.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+            return a.second > b.second;
+            });
+
+        // Ahora, imprime los resultados ordenados.
         for (const pair<string, int>& result : endResults) {
             topk--;
             if (topk < 0) {
                 break;
             }
 
-            //
-            auto customComparator = [](const pair<string, int>& a, const pair<string, int>& b) {
-                return a.second < b.second;
-                };
-
-            // Ordena el vector usando el comparador personalizado.
-            std::sort(endResults.begin(), endResults.end(), customComparator);
-
-            // Imprime el vector ordenado.
-            for (const auto& pair : endResults) {
-                std::cout << pair.first << ": " << pair.second << std::endl;
-            }
-
-            // string fileName = result.first;
-            // int value = result.second;
-            // cout << "Archivo: " << fileName << ", Cantidad: " << value << endl;
+            // Agregar para imprimir el vector de mayor a menor usando el int del pair y respetando el topk < 0
+            string fileName = result.first;
+            int value = result.second;
+            cout << "Archivo: " << fileName << ", Cantidad: " << value << endl;
         }
     }
 

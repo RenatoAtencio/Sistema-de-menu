@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     }
 
     string nombreCarpetaOut = argv[1];
-    string pathOutput = "../Trabajo4/" + nombreCarpetaOut;
+    string pathOutput = "../Trabajo5/" + nombreCarpetaOut;
     for (const auto& entry : fs::directory_iterator(pathOutput)) {
         if (entry.is_regular_file()) {
             // Verifica si el nombre del archivo comienza con "file"
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
 
     // Escribe el índice invertido en el archivo "indiceInvertido.idx"
     string nombreIndexFile = argv[2];
-    string pathIndex = "../Trabajo4/" + nombreIndexFile;
+    string pathIndex = "../Trabajo5/" + nombreIndexFile;
     ofstream outputFile(pathIndex);
     for (const auto& entry : invertedIndex) {
         outputFile << entry.first << ":";

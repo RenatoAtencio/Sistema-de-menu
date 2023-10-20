@@ -99,9 +99,6 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
         else {
             cout << "No tiene este permiso" << endl;
         }
-    default: { // Cualquier otro caso
-        cout << "Esta funcionalidad no esta implementada" << endl;
-    }
     }
     case 8: {
         if (user.verificarPermiso(8)) {
@@ -132,6 +129,9 @@ void verSeleccion(bool& seguir, usuario user, int userInput, string nombreNuevoT
             cout << "No tiene este permiso" << endl;
         }
         break;
+    }
+    default: { // Cualquier otro caso
+        cout << "Esta funcionalidad no esta implementada" << endl;
     }
     }
 }
